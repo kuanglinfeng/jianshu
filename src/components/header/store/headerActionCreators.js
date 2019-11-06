@@ -1,4 +1,4 @@
-import { SEARCH_FOCUS, SEARCH_BLUR } from '../actionTypes/headerActionType'
+import { SEARCH_FOCUS, SEARCH_BLUR } from './headerActionTypes'
 
 
 export function searchFocusAction() {

@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { CSSTransition } from 'react-transition-group'
 import { HeaderWrapper, Logo, Nav, NavItem, SearchWrapper, NavSearch, Addition, Button } from './style/style'
-import { searchFocusAction, searchBlurAction } from '../../actionCreators/headerActionCreator'
+import { searchFocusAction, searchBlurAction } from './store/headerActionCreators'
 
 const Header = (props) => {
   return (
@@ -37,7 +37,8 @@ const Header = (props) => {
       <Addition>
         <Button className='writting'>
           <i className="iconfont">&#xe615;</i>
-          写文章</Button>
+          写文章
+        </Button>
         <Button className='reg'>注册</Button>
       </Addition>
     </HeaderWrapper>
@@ -54,12 +55,10 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     handleInputFocus() {
-      const action = searchFocusAction()
-      dispatch(action)
+      dispatch(searchFocusAction())
     },
     handleInputBlur() {
-      const action = searchBlurAction()
-      dispatch(action)
+      dispatch(searchBlurAction())
     }
   }
 }
