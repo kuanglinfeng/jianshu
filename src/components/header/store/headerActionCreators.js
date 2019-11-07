@@ -2,23 +2,7 @@ import { SEARCH_FOCUS, SEARCH_BLUR, CHANGE_LIST } from './headerActionTypes'
 import axios from 'axios'
 import { fromJS } from 'immutable'
 
-
-export function searchFocusAction() {
-  const action = {
-    type: SEARCH_FOCUS
-  }
-  return action
-}
-
-
-export function searchBlurAction() {
-  const action = {
-    type: SEARCH_BLUR
-  }
-  return action
-}
-
-export function changeList(data) {
+function changeList(data) {
   const action = {
     type: CHANGE_LIST,
     payload: {
@@ -27,6 +11,21 @@ export function changeList(data) {
   }
   return action
 }
+
+export function searchFocusAction() {
+  const action = {
+    type: SEARCH_FOCUS
+  }
+  return action
+}
+
+export function searchBlurAction() {
+  const action = {
+    type: SEARCH_BLUR
+  }
+  return action
+}
+
 
 export function getList() {
   return function (dispatch) {

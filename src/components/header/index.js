@@ -9,7 +9,8 @@ import { searchFocusAction, searchBlurAction, getList } from './store/headerActi
 class Header extends React.Component {
 
   getListArea() {
-    if (this.props.focused) {
+    const { focused, list } = this.props
+    if (focused) {
       return (
         <SearchInfo>
           <SearchInfoTitle>
@@ -20,7 +21,7 @@ class Header extends React.Component {
           </SearchInfoTitle>
           <SearchInfoList>
             {
-              this.props.list.map((item, index) => (<SearchInfoItem key={index}>{item}</SearchInfoItem>))
+              list.map((item, index) => (<SearchInfoItem key={index}>{item}</SearchInfoItem>))
             }
           </SearchInfoList>
         </SearchInfo>
@@ -31,7 +32,7 @@ class Header extends React.Component {
   }
 
   render() {
-    const props = this.props
+    const { focused, handleInputFocus, handleInputBlur } = this.props
     return (
       <HeaderWrapper>
         <Logo />
@@ -44,18 +45,18 @@ class Header extends React.Component {
           </NavItem>
           <SearchWrapper>
             <CSSTransition
-              in={props.focused}
+              in={focused}
               timeout={200}
               classNames="slide"
             >
               <NavSearch
-                className={props.focused ? 'focused' : ''}
-                onFocus={props.handleInputFocus}
-                onBlur={props.handleInputBlur}
+                className={focused ? 'focused' : ''}
+                onFocus={handleInputFocus}
+                onBlur={handleInputBlur}
               ></NavSearch>
             </CSSTransition>
             <i
-              className={props.focused ? 'focused iconfont' : 'iconfont'}
+              className={focused ? 'focused iconfont' : 'iconfont'}
             >
               &#xe6e4;
         </i>
@@ -72,7 +73,6 @@ class Header extends React.Component {
       </HeaderWrapper>
     )
   }
-
 }
 
 
