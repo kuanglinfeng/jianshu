@@ -2,27 +2,32 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { CSSTransition } from 'react-transition-group'
 import { HeaderWrapper, Logo, Nav, NavItem, SearchWrapper, NavSearch, Addition, Button, SearchInfo, SearchInfoTitle, SearchInfoSwitch, SearchInfoList, SearchInfoItem } from './style/style'
-import { searchFocusAction, searchBlurAction, getList } from './store/headerActionCreators'
+import { searchFocusAction, searchBlurAction, getList, mouseEnter, mouseLeave, changePage } from './store/headerActionCreators'
 
 
 
 class Header extends React.Component {
 
   getListArea() {
-    const { focused, list } = this.props
-    if (focused) {
+    const { focused, list, page, totalPage, mouseIn, handleMouseEnter, handleMouseLeave, handleChangePage } = this.props
+    const newList = list.toJS()
+    const pageList = [] 
+    for (let i = (page - 1) * 10; newList[i] && i < page * 10; i++) {
+      pageList.push(
+        <SearchInfoItem key={i}>{newList[i]}</SearchInfoItem>
+      )
+    }
+    if (focused || mouseIn) {
       return (
-        <SearchInfo>
+        <SearchInfo onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
           <SearchInfoTitle>
             热门搜索
-          <SearchInfoSwitch>
+          <SearchInfoSwitch onClick={() => handleChangePage(page, totalPage)}>
               换一批
           </SearchInfoSwitch>
           </SearchInfoTitle>
           <SearchInfoList>
-            {
-              list.map((item, index) => (<SearchInfoItem key={index}>{item}</SearchInfoItem>))
-            }
+            { pageList }
           </SearchInfoList>
         </SearchInfo>
       )
@@ -75,12 +80,13 @@ class Header extends React.Component {
   }
 }
 
-
-
 const mapStateToProps = (state) => {
   return {
     focused: state.getIn(['headerStore', 'focused']), // 将仓库里的focused映射到focused
-    list: state.getIn(['headerStore', 'list'])
+    list: state.getIn(['headerStore', 'list']),
+    page: state.getIn(['headerStore', 'page']),
+    totalPage: state.getIn(['headerStore', 'totalPage']),
+    mouseIn: state.getIn(['headerStore', 'mouseIn'])
   }
 }
 
@@ -92,6 +98,19 @@ const mapDispatchToProps = (dispatch) => {
     },
     handleInputBlur() {
       dispatch(searchBlurAction())
+    },
+    handleMouseEnter() {
+      dispatch(mouseEnter())
+    },
+    handleMouseLeave() {
+      dispatch(mouseLeave())
+    },
+    handleChangePage(page, totalPage) {
+      if (page < totalPage) {
+        dispatch(changePage(page + 1))
+      } else {
+        dispatch(changePage(1))
+      }
     }
   }
 }
