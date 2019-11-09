@@ -8,7 +8,6 @@ import Writer from './components/Writer'
 
 class Home extends React.Component {
 
-
   render() {
     return (
       <HomeWrapper>
