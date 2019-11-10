@@ -7,19 +7,18 @@ class Topic extends React.Component {
 
 
   render() {
+    const { list } = this.props
     return (
       <TopicWrapper>
         {
-          this.props.list.map((item, index) => (
-            <TopicItem key={index}>
+           list.map(item => (
+            <TopicItem key={item.get('id')}>
               <img className='topic-pic' src={item.get('imgUrl')} alt=""/>
               { item.get('title') }
             </TopicItem>
             )
           )
         }
-        
-        
       </TopicWrapper>
     )
   }
@@ -29,7 +28,7 @@ class Topic extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    list: state.get('homeStore').get('topicList')
+    list: state.getIn(['homeStore', 'topicList'])
   }
 }
 
