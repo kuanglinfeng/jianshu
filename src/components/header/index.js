@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { CSSTransition } from 'react-transition-group'
 import { HeaderWrapper, Logo, Nav, NavItem, SearchWrapper, NavSearch, Addition, Button, SearchInfo, SearchInfoTitle, SearchInfoSwitch, SearchInfoList, SearchInfoItem } from './style/style'
 import { searchFocusAction, searchBlurAction, getList, mouseEnter, mouseLeave, changePage } from './store/headerActionCreators'
-
+import { Link } from 'react-router-dom'
 
 
 class Header extends React.Component {
@@ -41,7 +41,9 @@ class Header extends React.Component {
     const { focused, handleInputFocus, handleInputBlur, list } = this.props
     return (
       <HeaderWrapper>
-        <Logo />
+        <Link to='/'>
+         <Logo />
+        </Link>
         <Nav>
           <NavItem className='left active'>首页</NavItem>
           <NavItem className='left'>下载App</NavItem>

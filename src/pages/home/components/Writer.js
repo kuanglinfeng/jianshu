@@ -1,9 +1,7 @@
 import React from 'react'
 
 
-class Writer extends React.Component {
-
-
+class Writer extends React.PureComponent {
   render() {
     return (
       <div>
@@ -11,7 +9,6 @@ class Writer extends React.Component {
       </div>
     )
   }
-
 }
 
 export default Writer

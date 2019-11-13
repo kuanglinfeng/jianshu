@@ -1,26 +1,31 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { ListItem, ListInfo } from '../style/style'
+import { ListItem, ListInfo, LoadMore } from '../style/style'
+import { getMoreList } from '../store/homeActionCreators'
+import { Link } from 'react-router-dom'
 
-class List extends React.Component {
+class List extends React.PureComponent {
 
 
   render() {
 
-    const { list } = this.props
+    const { list, getMoreList, page } = this.props
     return (
       <div>
         {
-          list.map(item => (
-            <ListItem key={item.get('id')}>
+          list.map((item, index) => (
+            <Link key={index} to='/detail'>
+            <ListItem>
               <img className='pic' src={item.get('imgUrl')} alt=""/>
               <ListInfo>
                 <h3 className='title'>{item.get('title')}</h3>
                 <p className='desc'>{item.get('desc')}</p>
               </ListInfo>
             </ListItem>
+            </Link>
           ))
         }
+        <LoadMore onClick={() => getMoreList(page)}>更多文字</LoadMore>
       </div>
 
     )
@@ -30,8 +35,17 @@ class List extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    list: state.getIn(['homeStore', 'articleList'])
+    list: state.getIn(['homeStore', 'articleList']),
+    page: state.getIn(['homeStore', 'articlePage'])
   }
 }
 
-export default connect(mapStateToProps, null)(List)
+function mapDispatchToProps(dispatch) {
+  return {
+    getMoreList(page) {
+      dispatch(getMoreList(page))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(List)
