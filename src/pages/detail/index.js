@@ -6,7 +6,8 @@ import { getDetail } from './store/detailActionCreators'
 class Detail extends React.Component {
 
   componentDidMount() {
-    this.props.getDetail()
+    const id = this.props.location.search.split('=')[1]
+    this.props.getDetail(id)
   }
 
   render() {
@@ -31,8 +32,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    getDetail() {
-      dispatch(getDetail())
+    getDetail(id) {
+      dispatch(getDetail(id))
     }
   }
 }
