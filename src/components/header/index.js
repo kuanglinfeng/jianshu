@@ -12,7 +12,7 @@ class Header extends React.Component {
   getListArea() {
     const { focused, list, page, totalPage, mouseIn, handleMouseEnter, handleMouseLeave, handleChangePage } = this.props
     const newList = list.toJS()
-    const pageList = [] 
+    const pageList = []
     for (let i = (page - 1) * 10; newList[i] && i < page * 10; i++) {
       pageList.push(
         <SearchInfoItem key={i}>{newList[i]}</SearchInfoItem>
@@ -24,12 +24,12 @@ class Header extends React.Component {
           <SearchInfoTitle>
             热门搜索
           <SearchInfoSwitch onClick={() => handleChangePage(page, totalPage, this.spinIcon)}>
-            <i ref={(icon) => { this.spinIcon = icon }} className="iconfont spin">&#xe851;</i>
-            换一批
+              <i ref={(icon) => { this.spinIcon = icon }} className="iconfont spin">&#xe851;</i>
+              换一批
           </SearchInfoSwitch>
           </SearchInfoTitle>
           <SearchInfoList>
-            { pageList }
+            {pageList}
           </SearchInfoList>
         </SearchInfo>
       )
@@ -43,14 +43,14 @@ class Header extends React.Component {
     return (
       <HeaderWrapper>
         <Link to='/'>
-         <Logo />
+          <Logo />
         </Link>
         <Nav>
           <NavItem className='left active'>首页</NavItem>
           <NavItem className='left'>下载App</NavItem>
           {
-            login ? <NavItem onClick={logout} className='right'>退出</NavItem> : 
-            <Link to='/login'><NavItem className='right'>登录</NavItem></Link>
+            login ? <NavItem onClick={logout} className='right'>退出</NavItem> :
+              <Link to='/login'><NavItem className='right'>登录</NavItem></Link>
           }
           <NavItem className='right'>
             <i className="iconfont">&#xe636;</i>
@@ -76,10 +76,12 @@ class Header extends React.Component {
           </SearchWrapper>
         </Nav>
         <Addition>
-          <Button className='writting'>
-            <i className="iconfont">&#xe615;</i>
-            写文章
-        </Button>
+          <Link to='/write'>
+            <Button className='writting'>
+              <i className="iconfont">&#xe615;</i>
+              写文章
+            </Button>
+          </Link>
           <Button className='reg'>注册</Button>
         </Addition>
       </HeaderWrapper>
